@@ -1,6 +1,7 @@
 package cashregister;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
@@ -10,9 +11,20 @@ public class CashRegisterTest {
 
     @Test
     public void should_print_the_real_purchase_when_call_process() {
-        //given
+        Printer printer = mock(Printer.class);
+        CashRegister cashRegister = new CashRegister(printer);
+        Item itemList[]=new Item[1];
+        for (int i = 0; i <1 ; i++) {
+            itemList[i]=new  Item("apple", 15.5);
+        }
+        Purchase purchase = new Purchase(itemList);
+
         //when
+        cashRegister.process(purchase);
+
         //then
+        verify(printer).print("apple"+"\t"+15.5+"\n");
+
     }
 
     @Test
