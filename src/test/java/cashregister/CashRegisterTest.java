@@ -11,6 +11,8 @@ public class CashRegisterTest {
 
     @Test
     public void should_print_the_real_purchase_when_call_process() {
+
+        //given
         Printer printer = mock(Printer.class);
         CashRegister cashRegister = new CashRegister(printer);
         Item itemList[]=new Item[1];
@@ -29,9 +31,18 @@ public class CashRegisterTest {
 
     @Test
     public void should_print_the_stub_purchase_when_call_process() {
+
         //given
+        Printer printer = mock(Printer.class);
+        CashRegister cashRegister = new CashRegister(printer);
+        Purchase purchase=mock(Purchase.class);
+
         //when
+        when(purchase.asString()).thenReturn("doing something");
+        cashRegister.process(purchase);
+
         //then
+        verify(printer,times(1)).print("doing something");
     }
 
     @Test
